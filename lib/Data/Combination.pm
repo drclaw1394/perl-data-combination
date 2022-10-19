@@ -51,9 +51,9 @@ scalars as elements.
 =head1 MOTIVATION
 
 I wanted to make it easy to write network listener code, with difference
-combinations of interface and familiy types. That made me look for suitable
+combinations of interface and family types. That made me look for suitable
 combination code which I couldn't find. There are a few permutation modules,
-however. This is the module I wrote to generate the combinations which woudld
+however. This is the module I wrote to generate the combinations which would
 then be filtered
 
 =head1 API
@@ -79,7 +79,7 @@ for each index used for combination.
 
 =head1 SEE ALSO
 
-There are a few permutation modules.
+There are a few permutation modules:
 
 L<Algorithm::Permute>
 L<Math::Permute::Lists>
