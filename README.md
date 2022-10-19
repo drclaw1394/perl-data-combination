@@ -88,7 +88,7 @@ Ruben Westerberg, <drclaw@mac.com>
 
 # REPOSITORTY and BUGS
 
-Please report any bugs via git hub: [http://github.com/drclaw1394/perl-data-combinations](http://github.com/drclaw1394/perl-data-combinations)
+Please report any bugs via git hub: [http://github.com/drclaw1394/perl-data-combination](http://github.com/drclaw1394/perl-data-combination)
 
 # COPYRIGHT AND LICENSE
 
