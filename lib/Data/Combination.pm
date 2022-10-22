@@ -43,46 +43,75 @@ Data::Combination - Hash and Array element combination generator
 
 =head1 DESCRIPTION
 
-C<Data::Combinations> is a module which generates the combinations (not
-permutations) of a hash or array which has sub arrays as elements and other
-scalars as elements.
+C<Data::Combinations> generates hashes or arrays by making combinations of
+values for keys with array values.
 
+=head1 EXAMPLES
 
-=head1 MOTIVATION
+	===
+	input:
+	["a","b","c"]
 
-I wanted to make it easy to write network listener code, with difference
-combinations of interface and family types. That made me look for suitable
-combination code which I couldn't find. There are a few permutation modules,
-however. This is the module I wrote to generate the combinations which would
-then be filtered
+	outputs:
+	["a","b","c"]
+	
+	===
+	input:
+	[["a","b","c"]]
+
+	outputs:
+	["a"]
+	["b"]
+	["c"]
+
+	===
+	input:
+	[["a","b"], [1,2]];
+
+	outputs:
+	[a, 1]
+	[a, 2]
+	[b, 1]
+	[b, 2]
+
+	===
+	input:
+	["a", "b", ["x","y"], {key=>"val"}]
+
+	outputs:
+	["a","b","x", {key=>"val"}]
+	["a","b","y", {key=>"val"}]
+
 
 =head1 API
 
 The module only has a single function currently, which isn't exported. To use
 it it must be addressed by its full name
 
-
 =head2 combinations
 
-	my $result=Data::Combinations::Combinations $ref;
+	my $result=Data::Combinations::combinations $ref;
 
 Generates the combinations of 'fields' in C<$ref>. A field is either a hash key
 or array index which contains a reference to an array. If a field is another
-scalar type, it is wrapped into an array
+scalar type, it is wrapped into an array of a single element.
 
 If C<$ref> is a hash, the keys are preserved in the outputs, with the values
 for each key used for combination. 
 
-If C<$ref> is an array, the indexes are preserved in the outputs, with the values
-for each index used for combination. 
+If C<$ref> is an array, the indexes are preserved in the outputs, with the
+values for each index used for combination. 
+
+Return value is a reference to an array of combinations. 
 
 
 =head1 SEE ALSO
 
-There are a few permutation modules:
+There are other permutation modules. But they only work with flat lists?
 
 L<Algorithm::Permute>
 L<Math::Permute::Lists>
+L<Math::Combinatorics>
 
 =head1 AUTHOR
 
@@ -210,7 +239,6 @@ sub array_combo {
 		push @output, \@array;
 	}
 	\@output;	
-
 }
 
 #Public subs

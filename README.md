@@ -42,17 +42,46 @@ Data::Combination - Hash and Array element combination generator
 
 # DESCRIPTION
 
-`Data::Combinations` is a module which generates the combinations (not
-permutations) of a hash or array which has sub arrays as elements and other
-scalars as elements.
+`Data::Combinations` generates hashes or arrays by making combinations of
+values for keys with array values.
 
-# MOTIVATION
+# EXAMPLES
 
-I wanted to make it easy to write network listener code, with difference
-combinations of interface and familiy types. That made me look for suitable
-combination code which I couldn't find. There are a few permutation modules,
-however. This is the module I wrote to generate the combinations which woudld
-then be filtered
+```perl
+    ===
+    input:
+    ["a","b","c"]
+
+    outputs:
+    ["a","b","c"]
+    
+    ===
+    input:
+    [["a","b","c"]]
+
+    outputs:
+    ["a"]
+    ["b"]
+    ["c"]
+
+    ===
+    input:
+    [["a","b"], [1,2]];
+
+    outputs:
+    [a, 1]
+    [a, 2]
+    [b, 1]
+    [b, 2]
+
+    ===
+    input:
+    ["a", "b", ["x","y"], {key=>"val"}]
+
+    outputs:
+    ["a","b","x", {key=>"val"}]
+    ["a","b","y", {key=>"val"}]
+```
 
 # API
 
@@ -62,25 +91,28 @@ it it must be addressed by its full name
 ## combinations
 
 ```perl
-    my $result=Data::Combinations::Combinations $ref;
+    my $result=Data::Combinations::combinations $ref;
 ```
 
 Generates the combinations of 'fields' in `$ref`. A field is either a hash key
 or array index which contains a reference to an array. If a field is another
-scalar type, it is wrapped into an array
+scalar type, it is wrapped into an array of a single element.
 
 If `$ref` is a hash, the keys are preserved in the outputs, with the values
 for each key used for combination. 
 
-If `$ref` is an array, the indexes are preserved in the outputs, with the values
-for each index used for combination. 
+If `$ref` is an array, the indexes are preserved in the outputs, with the
+values for each index used for combination. 
+
+Return value is a reference to an array of combinations. 
 
 # SEE ALSO
 
-There are a few permutation modules.
+There are other permutation modules. But they only work with flat lists?
 
 [Algorithm::Permute](https://metacpan.org/pod/Algorithm%3A%3APermute)
 [Math::Permute::Lists](https://metacpan.org/pod/Math%3A%3APermute%3A%3ALists)
+[Math::Combinatorics](https://metacpan.org/pod/Math%3A%3ACombinatorics)
 
 # AUTHOR
 
