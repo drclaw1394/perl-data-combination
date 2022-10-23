@@ -171,7 +171,9 @@ Return value is a reference to an array of the created combinations.
 There are other permutation modules. But they only work with flat lists?
 
 L<Algorithm::Permute>
+
 L<Math::Permute::Lists>
+
 L<Math::Combinatorics>
 
 =head1 AUTHOR
