@@ -9,35 +9,39 @@ Data::Combination - Hash and Array element combination generator
 
 	use Data::Combination;
 	
-	#Generate combination of array of arrays
+	#Generate combination of array with two 'fields'
 	my $result=Data::Combination::combinations([[1,2,3], [qw(a b c)])
 	
-	# $result is an array ref of all combinations
+	# $result is an array ref of all combinations of the two fields
 	[
 		[1,a],
 		[1,b],
 		[1,c],
+
 		[2,a],
 		[2,b],
 		[2,c],
+
 		[3,a],
 		[3,b],
-		[3,c],
+		[3,c]
 	]
 
-	#Generate combination of array of arrays
+	#Generate combination of hash with two 'fields'
 	my $result=Data::Combination::combinations(key1=>[1,2,3], key2=>[qw(a b c)])
 
-	# $result is a array of combination hashes
+	# $result is an array ref of all combinations of the two fields
 	[
 		{key1=>1,key2=>a},
+		{key1=>2,key2=>a},
+		{key1=>3,key2=>a},
+		
+		{key1=>1,key2=>b},
 		{key1=>2,key2=>b},
-		{key1=>3,key2=>c},
-		{key1=>1,key2=>a},
-		{key1=>2,key2=>b},
-		{key1=>3,key2=>c},
-		{key1=>1,key2=>a},
-		{key1=>2,key2=>b},
+		{key1=>3,key2=>b},
+
+		{key1=>1,key2=>c},
+		{key1=>2,key2=>c},
 		{key1=>3,key2=>c},
 	]
 
@@ -46,55 +50,112 @@ Data::Combination - Hash and Array element combination generator
 C<Data::Combinations> generates hashes or arrays by making combinations of
 values for keys with array values.
 
+
 =head1 EXAMPLES
+
+Array examples:
 
 	===
 	input:
 	["a","b","c"]
 
-	outputs:
-	["a","b","c"]
+	output:
+	[
+		["a","b","c"]
+	]
 	
 	===
 	input:
 	[["a","b","c"]]
 
-	outputs:
-	["a"]
-	["b"]
-	["c"]
+	output:
+	[
+		["a"],
+		["b"],
+		["c"]
+	]
 
 	===
 	input:
 	[["a","b"], [1,2]];
 
-	outputs:
-	[a, 1]
-	[a, 2]
-	[b, 1]
-	[b, 2]
+	output:
+	[
+		[a, 1],
+		[a, 2],
+		[b, 1],
+		[b, 2]
+	]
 
 	===
 	input:
 	["a", "b", ["x","y"], {key=>"val"}]
 
+	output:
+	[
+		["a","b","x", {key=>"val"}],
+		["a","b","y", {key=>"val"}]
+	]
+
+Hash examples:
+
+	===
+	input:
+	{k1=>"a",k2=>"b",k3=>"c"}
+
 	outputs:
-	["a","b","x", {key=>"val"}]
-	["a","b","y", {key=>"val"}]
+	[
+		{k1=>"a",k2=>"b",k3=>"c"}
+	]
+	
+	===
+	input:
+	{k1=>["a","b","c"]}
+
+	output:
+	[
+		{k1=>"a"},
+		{k2=>"b"},
+		{k3=>"c"}
+	]
+
+	===
+	input:
+	{k1=>["a","b"], k2=>[1,2]}
+
+	output:
+	[
+		{k1=>"a", k2=>1},
+		{k1=>"b", k2=>2},
+		{k1=>"a", k2=>1},
+		{k1=>"b", k2=>2}
+	]
+
+	===
+	input:
+	[
+		{k1=>"a", k2=>"b", k3=>["x","y"], k4=>{key=>"val"}}
+	]
+
+	output:
+	[
+		{k1=>"a",k2=>"b",k3=>"x", k4=>{key=>"val"}},
+		{k1=>"a",k2=>"b",k3=>"y", k4=>{key=>"val"}}
+	]
 
 
 =head1 API
 
-The module only has a single function currently, which isn't exported. To use
-it it must be addressed by its full name
+The module currently has a single function, which isn't exported. To use it it
+must be addressed by its full name
 
 =head2 combinations
 
 	my $result=Data::Combinations::combinations $ref;
 
-Generates the combinations of 'fields' in C<$ref>. A field is either a hash key
-or array index which contains a reference to an array. If a field is another
-scalar type, it is wrapped into an array of a single element.
+Generates the combinations of 'fields' in C<$ref>. A 'field' is either a hash
+element or array element which contains a reference to an array. If a field
+contains another scalar type, it is wrapped into an array of a single element.
 
 If C<$ref> is a hash, the keys are preserved in the outputs, with the values
 for each key used for combination. 
@@ -102,7 +163,7 @@ for each key used for combination.
 If C<$ref> is an array, the indexes are preserved in the outputs, with the
 values for each index used for combination. 
 
-Return value is a reference to an array of combinations. 
+Return value is a reference to an array of the created combinations. 
 
 
 =head1 SEE ALSO
@@ -135,8 +196,6 @@ THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS
 OR IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE
 IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
 PARTICULAR PURPOSE.
-
-
 
 
 =cut

@@ -5,6 +5,8 @@ use Test::More;
 
 BEGIN { use_ok('Data::Combination') };
 
+use Data::Combination;
+
 {
 	#Hash testing
 	my $result=Data::Combination::combinations({key1=>[qw<1 2 3>], key2=>[qw<a b c>], key3=>"hello"});
@@ -81,7 +83,8 @@ BEGIN { use_ok('Data::Combination') };
 		}
 	}
 
-	ok $found==@expected==@$result, "Expected values ok";
+	ok $found==@expected, "Expected values ok";
+	ok $found==@$result, "Expected values ok";
 }
 
 
@@ -150,7 +153,8 @@ BEGIN { use_ok('Data::Combination') };
 			}
 		}
 	}
-	ok $found==@expected==@$result, "Expected values ok";
+	ok $found==@expected, "Expected values ok";
+	ok $found==@$result, "Expected values ok";
 }
 
 done_testing;
